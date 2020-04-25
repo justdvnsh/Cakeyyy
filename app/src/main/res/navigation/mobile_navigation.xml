@@ -3,23 +3,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_home">
+    app:startDestination="@+id/navigation_cake_list">
 
     <fragment
-        android:id="@+id/navigation_home"
-        android:name="com.divyansh.cakeyyy.ui.home.HomeFragment"
-        android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        android:id="@+id/navigation_cake_list"
+        android:name="com.divyansh.cakeyyy.ui.cakeList.CakeListFragment"
+        android:label="@string/title_cake_list"
+        tools:layout="@layout/fragment_cake_list" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="com.divyansh.cakeyyy.ui.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        android:id="@+id/navigation_cart_list"
+        android:name="com.divyansh.cakeyyy.ui.cartList.CartListFragment"
+        android:label="@string/title_cart_list"
+        tools:layout="@layout/fragment_cart_list" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="com.divyansh.cakeyyy.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        android:id="@+id/navigation_selected_cake"
+        android:name="com.divyansh.cakeyyy.ui.selectedCake.SelectedCakeFragment"
+        android:label="@string/title_selected_cake"
+        tools:layout="@layout/fragment_selected_cake" />
 </navigation>

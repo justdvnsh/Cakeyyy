@@ -1,4 +1,4 @@
-package com.divyansh.cakeyyy.ui.dashboard;
+package com.divyansh.cakeyyy.ui.selectedCake;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,17 +14,17 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.divyansh.cakeyyy.R;
 
-public class DashboardFragment extends Fragment {
+public class SelectedCakeFragment extends Fragment {
 
-    private DashboardViewModel dashboardViewModel;
+    private SelectedCakeViewModel selectedCakeViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        dashboardViewModel =
-                ViewModelProviders.of(this).get(DashboardViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_dashboard, container, false);
-        final TextView textView = root.findViewById(R.id.text_dashboard);
-        dashboardViewModel.getText().observe(this, new Observer<String>() {
+        selectedCakeViewModel =
+                ViewModelProviders.of(this).get(SelectedCakeViewModel.class);
+        View root = inflater.inflate(R.layout.fragment_selected_cake, container, false);
+        final TextView textView = root.findViewById(R.id.text_notifications);
+        selectedCakeViewModel.getText().observe(this, new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);
