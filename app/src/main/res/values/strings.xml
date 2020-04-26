@@ -4,4 +4,6 @@
     <string name="title_cart_list">Cart</string>
     <string name="title_selected_cake">Selected Cake</string>
     <string name="add_to_cart">Add To Cart</string>
+    <string name="add_to_selected">Add To Selected</string>
+    <string name="remove">Remove</string>
 </resources>

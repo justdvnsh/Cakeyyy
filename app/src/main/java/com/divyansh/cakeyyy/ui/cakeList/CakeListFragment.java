@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.divyansh.cakeyyy.R;
 import com.divyansh.cakeyyy.adapters.CakeAdapter;
+import com.divyansh.cakeyyy.data.Entities.Cart;
 import com.divyansh.cakeyyy.di.CakeComponent;
 import com.divyansh.cakeyyy.di.DaggerCakeComponent;
 import com.divyansh.cakeyyy.di.modules.CakeModule;
@@ -92,7 +93,7 @@ public class CakeListFragment extends Fragment implements CakeAdapter.mOnAddToCa
 
 
     @Override
-    public void AddToCart(Datum datum) {
-
+    public void AddToCart(Cart cart) {
+        cakeListViewModel.insertCakeToCart(cart);
     }
 }

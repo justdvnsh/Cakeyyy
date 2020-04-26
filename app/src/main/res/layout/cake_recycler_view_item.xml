@@ -15,47 +15,7 @@
         android:orientation="vertical"
         >
 
-        <ImageView
-            android:id="@+id/cake_image_holder"
-            android:layout_height="200dp"
-            android:layout_width="match_parent"
-            android:scaleType="centerCrop"
-            />
-
-        <TextView
-            android:id="@+id/cake_name_holder"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:textAllCaps="true"
-            android:layout_marginTop="10dp"
-            />
-
-        <TextView
-            android:id="@+id/cake_weight_holder"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:textSize="16sp"
-            android:layout_marginTop="30dp"
-            />
-
-        <TextView
-            android:id="@+id/cake_price_holder"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:textAllCaps="true"
-            android:layout_marginTop="10dp"
-            />
-
-        <View
-            android:layout_height="2dp"
-            android:layout_width="match_parent"
-            android:layout_margin="20dp"
-            android:background="@color/colorAccent"
-            />
+        <include layout="@layout/base_recycler_view_layout" />
 
         <Button
             android:id="@+id/cake_add_to_cart"

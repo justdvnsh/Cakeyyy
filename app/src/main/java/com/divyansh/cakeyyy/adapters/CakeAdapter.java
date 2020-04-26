@@ -15,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.divyansh.cakeyyy.R;
+import com.divyansh.cakeyyy.data.Entities.Cart;
 import com.divyansh.cakeyyy.network.POJO.Cake;
 import com.divyansh.cakeyyy.network.POJO.Datum;
 import com.squareup.picasso.Picasso;
@@ -34,7 +35,7 @@ public class CakeAdapter extends RecyclerView.Adapter<CakeAdapter.cakeViewHolder
     private mOnAddToCartListener addToCartListener;
 
     public interface mOnAddToCartListener {
-        void AddToCart(Datum datum);
+        void AddToCart(Cart cart);
     }
 
     public CakeAdapter(Context context, mOnAddToCartListener listener, List<Datum> cakeList) {
@@ -63,7 +64,8 @@ public class CakeAdapter extends RecyclerView.Adapter<CakeAdapter.cakeViewHolder
         holder.cakeAddToCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addToCartListener.AddToCart(cake);
+                Cart cart = new Cart(getImage(cake), cake.getCakeName(), cake.getWLP().get(0).getWeight(), cake.getWLP().get(0).getPrice());
+                addToCartListener.AddToCart(cart);
                 Toast.makeText(context, "Cake Added" + cake.getCakeName(), Toast.LENGTH_SHORT).show();
             }
         });
