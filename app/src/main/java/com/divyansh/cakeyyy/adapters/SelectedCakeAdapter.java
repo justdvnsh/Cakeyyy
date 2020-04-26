@@ -74,6 +74,10 @@ public class SelectedCakeAdapter extends RecyclerView.Adapter<SelectedCakeAdapte
         notifyDataSetChanged();
     }
 
+    public List<Selected> getCakes() {
+        return cakeList;
+    }
+
     public class selectedCakeViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.cake_image_holder)

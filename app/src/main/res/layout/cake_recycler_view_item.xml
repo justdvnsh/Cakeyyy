@@ -22,11 +22,12 @@
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
             android:layout_margin="20dp"
-            android:background="@color/colorAccent"
+            android:background="@drawable/button_green"
+            android:padding="2dp"
             android:textAllCaps="false"
             android:textSize="20sp"
             android:text="@string/add_to_cart"
-            android:textColor="@android:color/white"
+            android:textColor="@color/colorAccent"
             />
     </LinearLayout>
 

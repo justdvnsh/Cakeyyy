@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -19,10 +20,15 @@ import com.divyansh.cakeyyy.adapters.SelectedCakeAdapter;
 import com.divyansh.cakeyyy.data.Entities.Selected;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import static androidx.recyclerview.widget.ItemTouchHelper.ACTION_STATE_DRAG;
+import static androidx.recyclerview.widget.ItemTouchHelper.DOWN;
+import static androidx.recyclerview.widget.ItemTouchHelper.UP;
 
 public class SelectedCakeFragment extends Fragment implements SelectedCakeAdapter.mOnRemoveSelectedCakeListener{
 
@@ -52,6 +58,45 @@ public class SelectedCakeFragment extends Fragment implements SelectedCakeAdapte
                 adapter.addCakes(selecteds);
             }
         });
+
+
+        ItemTouchHelper.Callback itemTouchCallback = new ItemTouchHelper.Callback() {
+            @Override
+            public int getMovementFlags(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
+                return makeFlag(ItemTouchHelper.ACTION_STATE_DRAG, UP | DOWN);
+            }
+
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                Collections.swap(adapter.getCakes(),viewHolder.getAdapterPosition(), target.getAdapterPosition());
+                adapter.notifyItemMoved(viewHolder.getAdapterPosition(), target.getAdapterPosition());
+                return true;
+            }
+
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                // do nothign
+            }
+
+            @Override
+            public void onSelectedChanged(@Nullable RecyclerView.ViewHolder viewHolder, int actionState) {
+                super.onSelectedChanged(viewHolder, actionState);
+
+                if (actionState == ACTION_STATE_DRAG) {
+                    viewHolder.itemView.setAlpha(0.5f);
+                }
+            }
+
+            @Override
+            public void clearView(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
+                super.clearView(recyclerView, viewHolder);
+
+                viewHolder.itemView.setAlpha(1.0f);
+            }
+        };
+
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(itemTouchCallback);
+        itemTouchHelper.attachToRecyclerView(recyclerView);
 
         return root;
     }
