@@ -27,7 +27,7 @@ public class CakeModule {
     @Provides
     public Retrofit retrofit(GsonConverterFactory gsonConverterFactory){
         return new Retrofit.Builder()
-                .baseUrl("http://kekizadmin.com/kekiz_api/")
+                .baseUrl("http://kekizadmin.com/")
                 .addConverterFactory(gsonConverterFactory)
                 .build();
     }
