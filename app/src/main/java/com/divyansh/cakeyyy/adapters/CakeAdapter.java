@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,18 +19,27 @@ import com.divyansh.cakeyyy.network.POJO.Cake;
 import com.divyansh.cakeyyy.network.POJO.Datum;
 import com.squareup.picasso.Picasso;
 
+import org.json.JSONObject;
+
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class CakeAdapter extends RecyclerView.Adapter<CakeAdapter.cakeViewHolder> {
 
     private List<Datum> cakeList;
     private Context context;
+    private mOnAddToCartListener addToCartListener;
 
-    public CakeAdapter(Context context, List<Datum> cakeList) {
+    public interface mOnAddToCartListener {
+        void AddToCart(Datum datum);
+    }
+
+    public CakeAdapter(Context context, mOnAddToCartListener listener, List<Datum> cakeList) {
         this.context = context;
+        this.addToCartListener = listener;
         this.cakeList = cakeList;
     }
 
@@ -44,10 +54,31 @@ public class CakeAdapter extends RecyclerView.Adapter<CakeAdapter.cakeViewHolder
     public void onBindViewHolder(@NonNull CakeAdapter.cakeViewHolder holder, int position) {
         Datum cake = cakeList.get(position);
         Log.i("Picutre", cake.getWLP().get(0).getPictures());
-//        Picasso.with(context).load("http://kekizadmin.com/uploads/catrgories/" + cake.getWLP().get(0).getPictures())
+        Log.i("Picture", getImage(cake));
+//        Picasso.with(context).setLoggingEnabled(true);
+        Picasso.with(context).load(getImage(cake)).into(holder.cakeImage);
         holder.cakeName.setText(cake.getCakeName());
         holder.cakeWeight.setText(cake.getWLP().get(0).getWeight());
         holder.cakePrice.setText(cake.getWLP().get(0).getPrice());
+        holder.cakeAddToCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addToCartListener.AddToCart(cake);
+                Toast.makeText(context, "Cake Added" + cake.getCakeName(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private String getImage(Datum cake) {
+        String url = "http://kekizadmin.com/uploads/catrgories/";
+
+        try {
+            JSONObject json = new JSONObject(cake.getWLP().get(0).getPictures());
+            return url + json.getString("file_name");
+        } catch (Exception e) {
+            Log.i("Exception", e.getMessage());
+            return "Error";
+        }
     }
 
     @Override

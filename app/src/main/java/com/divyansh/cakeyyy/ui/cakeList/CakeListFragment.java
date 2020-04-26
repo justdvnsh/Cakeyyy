@@ -24,6 +24,9 @@ import com.divyansh.cakeyyy.di.DaggerCakeComponent;
 import com.divyansh.cakeyyy.di.modules.CakeModule;
 import com.divyansh.cakeyyy.network.APIEndpoints;
 import com.divyansh.cakeyyy.network.POJO.Cake;
+import com.divyansh.cakeyyy.network.POJO.Datum;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -31,7 +34,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class CakeListFragment extends Fragment {
+public class CakeListFragment extends Fragment implements CakeAdapter.mOnAddToCartListener{
 
     private CakeListViewModel cakeListViewModel;
     private APIEndpoints apiEndpoints;
@@ -55,6 +58,8 @@ public class CakeListFragment extends Fragment {
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
         recyclerView.setLayoutManager(gridLayoutManager);
         recyclerView.setHasFixedSize(true);
+        adapter = new CakeAdapter(getContext(), CakeListFragment.this, new ArrayList<>());
+        recyclerView.setAdapter(adapter);
 
         fetchCakes();
 
@@ -68,9 +73,9 @@ public class CakeListFragment extends Fragment {
             @Override
             public void onResponse(Call<Cake> call, Response<Cake> response) {
                 if (response.isSuccessful()) {
-                    adapter = new CakeAdapter(getContext(), response.body().getData());
-                    recyclerView.setAdapter(adapter);
-                    adapter.notifyDataSetChanged();
+//                    adapter = new CakeAdapter(getContext(), response.body().getData());
+                    adapter.addCakes(response.body().getData());
+//                    adapter.notifyDataSetChanged();
                 } else {
                     Log.i("respinse", response.message());
                     Toast.makeText(getContext(), response.message(), Toast.LENGTH_SHORT).show();
@@ -86,4 +91,8 @@ public class CakeListFragment extends Fragment {
     }
 
 
+    @Override
+    public void AddToCart(Datum datum) {
+
+    }
 }
