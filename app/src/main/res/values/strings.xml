@@ -3,4 +3,5 @@
     <string name="title_cake_list">Home</string>
     <string name="title_cart_list">Cart</string>
     <string name="title_selected_cake">Selected Cake</string>
+    <string name="add_to_cart">Add To Cart</string>
 </resources>
