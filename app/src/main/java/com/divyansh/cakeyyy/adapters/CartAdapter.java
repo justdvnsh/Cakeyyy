@@ -28,13 +28,20 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.cartViewHolder
     private List<Cart> cakeList;
     private Context context;
     private mOnAddToSelectedListener addToSelectedListener;
+    private mOnRemoveCakeListener removeCakeListener;
 
     public interface mOnAddToSelectedListener {
-        void addToSelected();
+        void addToSelected(Cart cart);
     }
 
-    public CartAdapter(Context context, List<Cart> cakeList) {
+    public interface mOnRemoveCakeListener {
+        void removeCake(Cart cart);
+    }
+
+    public CartAdapter(Context context, mOnAddToSelectedListener addToSelectedListener, mOnRemoveCakeListener removeCakeListener, List<Cart> cakeList) {
         this.context = context;
+        this.addToSelectedListener = addToSelectedListener;
+        this.removeCakeListener = removeCakeListener;
         this.cakeList = cakeList;
     }
 
@@ -55,6 +62,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.cartViewHolder
         holder.cakeAddToSelected.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                addToSelectedListener.addToSelected(cake);
                 Toast.makeText(context, "Added to seleted", Toast.LENGTH_SHORT).show();
             }
         });
@@ -62,6 +70,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.cartViewHolder
         holder.cakeRemoveFromCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                removeCakeListener.removeCake(cake);
                 Toast.makeText(context, "Removed", Toast.LENGTH_SHORT).show();
             }
         });

@@ -25,7 +25,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class CartListFragment extends Fragment {
+public class CartListFragment extends Fragment implements CartAdapter.mOnAddToSelectedListener, CartAdapter.mOnRemoveCakeListener{
 
     private CartListViewModel cartListViewModel;
     private CartAdapter adapter;
@@ -44,7 +44,7 @@ public class CartListFragment extends Fragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setHasFixedSize(true);
-        adapter = new CartAdapter(getContext(), new ArrayList<>());
+        adapter = new CartAdapter(getContext(), CartListFragment.this, CartListFragment.this, new ArrayList<>());
         recyclerView.setAdapter(adapter);
         cartListViewModel.getAllCakes().observe(CartListFragment.this, new Observer<List<Cart>>() {
             @Override
@@ -54,5 +54,15 @@ public class CartListFragment extends Fragment {
         });
 
         return root;
+    }
+
+    @Override
+    public void addToSelected(Cart cart) {
+        // Do Something
+    }
+
+    @Override
+    public void removeCake(Cart cart) {
+        cartListViewModel.removeCakeFromDatabase(cart);
     }
 }

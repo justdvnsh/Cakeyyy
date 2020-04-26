@@ -1,6 +1,7 @@
 package com.divyansh.cakeyyy.ui.cartList;
 
 import android.app.Application;
+import android.os.AsyncTask;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -28,5 +29,24 @@ public class CartListViewModel extends AndroidViewModel {
 
     public LiveData<List<Cart>> getAllCakes() {
         return cakeList;
+    }
+
+    public void removeCakeFromDatabase(Cart cart) {
+        new deleteAsyncTask(db).execute(cart);
+    }
+
+    private static class deleteAsyncTask extends AsyncTask<Cart, Void, Void> {
+
+        private CakeDatabase db;
+
+        public deleteAsyncTask(CakeDatabase db) {
+            this.db = db;
+        }
+
+        @Override
+        protected Void doInBackground(Cart... carts) {
+            db.cartDAO().delete(carts[0]);
+            return null;
+        }
     }
 }
