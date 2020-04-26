@@ -13,18 +13,32 @@ public class Selected {
     public static final String TABLE_NAME = "selected";
 
     @PrimaryKey(autoGenerate = true)
-    private int id;
-    private Datum data;
+    public int id;
+    private String imageUrl;
+    private String cakeName;
+    private String cakeWeight;
+    private String cakePrice;
 
-    public Selected(Datum data) {
-        this.data = data;
+    public Selected(String imageUrl, String cakeName, String cakeWeight, String cakePrice){
+        this.imageUrl = imageUrl;
+        this.cakeName = cakeName;
+        this.cakeWeight = cakeWeight;
+        this.cakePrice = cakePrice;
     }
 
-    public Datum getData() {
-        return data;
+    public String getCakeName() {
+        return cakeName;
     }
 
-    public void setData(Datum data) {
-        this.data = data;
+    public String getCakePrice() {
+        return cakePrice;
+    }
+
+    public String getCakeWeight() {
+        return cakeWeight;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
     }
 }

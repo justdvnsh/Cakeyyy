@@ -7,11 +7,14 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
 import com.divyansh.cakeyyy.data.DAO.CartDAO;
+import com.divyansh.cakeyyy.data.DAO.SelectedCakeDAO;
 import com.divyansh.cakeyyy.data.Entities.Cart;
+import com.divyansh.cakeyyy.data.Entities.Selected;
 
 @Database(entities = {
-        Cart.class
-}, version = 1)
+        Cart.class,
+        Selected.class
+}, version = 2)
 public abstract class CakeDatabase extends RoomDatabase {
     private static CakeDatabase INSTANCE;
 
@@ -20,7 +23,7 @@ public abstract class CakeDatabase extends RoomDatabase {
             synchronized (CakeDatabase.class) {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(), CakeDatabase.class, "cakes")
-                            .build();
+                            .fallbackToDestructiveMigration().build();
                 }
             }
         }
@@ -32,4 +35,5 @@ public abstract class CakeDatabase extends RoomDatabase {
     }
 
     public abstract CartDAO cartDAO();
+    public abstract SelectedCakeDAO selectedDAO();
 }

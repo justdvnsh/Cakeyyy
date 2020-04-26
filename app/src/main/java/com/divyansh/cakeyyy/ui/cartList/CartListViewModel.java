@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModel;
 
 import com.divyansh.cakeyyy.data.CakeDatabase;
 import com.divyansh.cakeyyy.data.Entities.Cart;
+import com.divyansh.cakeyyy.data.Entities.Selected;
 import com.divyansh.cakeyyy.network.POJO.Cake;
 
 import java.util.List;
@@ -46,6 +47,24 @@ public class CartListViewModel extends AndroidViewModel {
         @Override
         protected Void doInBackground(Cart... carts) {
             db.cartDAO().delete(carts[0]);
+            return null;
+        }
+    }
+
+    public void addToSelected(Selected selected) {
+        new insertToSelectedCakes(db).execute(selected);
+    }
+
+    private static class insertToSelectedCakes extends AsyncTask<Selected, Void, Void> {
+
+        private CakeDatabase db;
+
+        public insertToSelectedCakes(CakeDatabase db) {
+            this.db = db;
+        }
+        @Override
+        protected Void doInBackground(Selected... selecteds) {
+            db.selectedDAO().save(selecteds[0]);
             return null;
         }
     }

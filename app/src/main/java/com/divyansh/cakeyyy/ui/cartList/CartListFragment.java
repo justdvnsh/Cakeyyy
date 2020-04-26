@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.divyansh.cakeyyy.R;
 import com.divyansh.cakeyyy.adapters.CartAdapter;
 import com.divyansh.cakeyyy.data.Entities.Cart;
+import com.divyansh.cakeyyy.data.Entities.Selected;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,8 +58,8 @@ public class CartListFragment extends Fragment implements CartAdapter.mOnAddToSe
     }
 
     @Override
-    public void addToSelected(Cart cart) {
-        // Do Something
+    public void addToSelected(Selected selected) {
+        cartListViewModel.addToSelected(selected);
     }
 
     @Override

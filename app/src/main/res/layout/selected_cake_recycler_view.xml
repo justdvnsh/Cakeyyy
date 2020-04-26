@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:elevation="15dp"
+    app:cardCornerRadius="10dp"
+    android:layout_margin="10dp"
+    >
+
+    <LinearLayout
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        >
+
+        <include layout="@layout/base_recycler_view_layout" />
+
+        <Button
+            android:id="@+id/selected_cake_remove"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_margin="20dp"
+            android:background="@color/colorDanger"
+            android:textAllCaps="false"
+            android:textSize="20sp"
+            android:text="@string/remove"
+            android:textColor="@android:color/white"
+            />
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

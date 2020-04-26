@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Adapter;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -45,6 +46,9 @@ public class CakeListFragment extends Fragment implements CakeAdapter.mOnAddToCa
     @BindView(R.id.cake_list_recycler_view)
     RecyclerView recyclerView;
 
+    @BindView(R.id.progress)
+    ProgressBar progressBar;
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         cakeListViewModel =
@@ -61,7 +65,7 @@ public class CakeListFragment extends Fragment implements CakeAdapter.mOnAddToCa
         recyclerView.setHasFixedSize(true);
         adapter = new CakeAdapter(getContext(), CakeListFragment.this, new ArrayList<>());
         recyclerView.setAdapter(adapter);
-
+        progressBar.setVisibility(View.VISIBLE);
         fetchCakes();
 
         return root;
@@ -74,10 +78,10 @@ public class CakeListFragment extends Fragment implements CakeAdapter.mOnAddToCa
             @Override
             public void onResponse(Call<Cake> call, Response<Cake> response) {
                 if (response.isSuccessful()) {
-//                    adapter = new CakeAdapter(getContext(), response.body().getData());
+                    progressBar.setVisibility(View.GONE);
                     adapter.addCakes(response.body().getData());
-//                    adapter.notifyDataSetChanged();
                 } else {
+                    progressBar.setVisibility(View.GONE);
                     Log.i("respinse", response.message());
                     Toast.makeText(getContext(), response.message(), Toast.LENGTH_SHORT).show();
                 }
@@ -85,6 +89,7 @@ public class CakeListFragment extends Fragment implements CakeAdapter.mOnAddToCa
 
             @Override
             public void onFailure(Call<Cake> call, Throwable t) {
+                progressBar.setVisibility(View.GONE);
                 Log.i("error", t.getMessage());
                 Toast.makeText(getContext(), "Failed", Toast.LENGTH_SHORT).show();
             }

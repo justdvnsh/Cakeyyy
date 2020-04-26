@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.divyansh.cakeyyy.R;
 import com.divyansh.cakeyyy.data.Entities.Cart;
+import com.divyansh.cakeyyy.data.Entities.Selected;
 import com.divyansh.cakeyyy.network.POJO.Datum;
 import com.squareup.picasso.Picasso;
 
@@ -31,7 +32,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.cartViewHolder
     private mOnRemoveCakeListener removeCakeListener;
 
     public interface mOnAddToSelectedListener {
-        void addToSelected(Cart cart);
+        void addToSelected(Selected selected);
     }
 
     public interface mOnRemoveCakeListener {
@@ -62,8 +63,9 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.cartViewHolder
         holder.cakeAddToSelected.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addToSelectedListener.addToSelected(cake);
-                Toast.makeText(context, "Added to seleted", Toast.LENGTH_SHORT).show();
+                Selected selected = new Selected(cake.getImageUrl(), cake.getCakeName(), cake.getCakeWeight(), cake.getCakePrice());
+                addToSelectedListener.addToSelected(selected);
+                Toast.makeText(context, "Added to seleted " + cake.getCakeName(), Toast.LENGTH_SHORT).show();
             }
         });
 
